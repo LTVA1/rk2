@@ -4,26 +4,52 @@
 
 struct Node
 {
-	Node();
+	Node(){}
+
 	Node(int nameNode);
-	~Node();
+
+	~Node()
+	{
+		if(parent != nullptr)
+		{
+			delete parent;
+		}
+
+		for(auto iter = listChilds.begin(); iter != listChilds.end(); iter++)
+		{
+			delete *(iter);
+		}
+	}
 
 	Node* parent;
 	std::list<Node*> listChilds;
 	int name;
-	static int countNodes;
+	int countNodes;
 };
 
 class Graph
 {
 	private:
 		Node* head;
+		std::list<Node*> node_ar;
+		int node_num;
 		//здесь можно писать любые функции, которые могут понадобиться
 
 	public:
-		Graph();
+		Graph()
+		{
+			node_num = 0;
+			Node* buf = new Node;
+			head = buf;
+			head->name = 0;
+		}
+
 		Graph(int countNodes);
-		~Graph();
+
+		~Graph()
+		{
+			delete head;
+		}
 
 		/*
 				output		:	-1 - функция не реализована

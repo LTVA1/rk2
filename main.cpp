@@ -6,6 +6,15 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
+	//task 1
+	//Node(3);
+
+	Graph gr;
+
+	gr.buildTreeBFS(9);
+
+	gr.BFS();
+
 	//task 2
 	int test[11] = {1, 3, 5, 6, 7, 10, 20, 69, 420, 666, 667};
 
