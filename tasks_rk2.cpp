@@ -139,7 +139,91 @@ Node::Node(int nameNode)
 
 int Graph::buildTreeBFS(int countNodes)
 {
-	return -1;
+	//return -1;
+	int n = countNodes;
+	int r = n - 1;
+	int q = n;
+	node_num = n;
+
+	while(r != 0)
+	{
+		node_num += q * r;
+		q = q * r;
+		r--;
+	}
+
+	std::list<Node*> generate_list;
+
+	for (int i = 1; i < factorial(n) * n + 1; ++i)
+	{
+		Node* buf  = new Node();
+		buf->name = i;
+		generate_list.push_back(buf);
+	}
+
+	int k = 0;
+	auto iter = generate_list.begin();
+
+	int b = n;
+	int c = n - 1;
+	auto iter_2 = generate_list.begin();
+
+	for (int i = 0; i < n; ++i)
+	{
+		iter_2.operator*()->parent = head;
+		iter_2++;
+	}
+
+	while (b - k > 1)
+	{
+		for (int i = 0; i < b; ++i)
+		{
+			for (int j = 0; j < n-k-1; ++j)
+			{
+				iter.operator*()->listChilds.push_back(iter_2.operator*());
+				iter_2.operator*()->parent = iter.operator*();
+				iter_2++;
+
+			}
+
+			iter++;
+		}
+
+		b = b * c;
+		c = c - 1;
+		k++;
+	}
+
+	if (b - k == 1)
+	{
+		for (int i = 0; i < b*n; ++i)
+		{
+			for (int j = 0; j < 1; ++j)
+			{
+				iter.operator*()->listChilds.push_back(iter_2.operator*());
+				iter_2.operator*()->parent = iter.operator*();
+				iter_2++;
+			}
+
+			iter++;
+		}
+	}
+
+	iter = generate_list.begin();
+
+	for (int i = 0; i < countNodes; ++i)
+	{
+		//std::cout << "d" << std::endl;
+		head->listChilds.push_back(iter.operator*());
+
+		iter.operator*()->parent = head;
+
+		iter++;
+	}
+
+	node_ar = generate_list;
+
+	return countNodes;
 }
 
 int Graph::buildTreeDFS(int countNodes)

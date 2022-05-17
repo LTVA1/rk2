@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
 	Graph gr;
 
-	gr.buildTreeBFS(9);
+	gr.buildTreeBFS(7);
 
 	gr.BFS();
 

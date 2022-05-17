@@ -38,14 +38,13 @@ class Graph
 	public:
 		Graph()
 		{
-			node_num = 0;
 			Node* buf = new Node;
 			head = buf;
 			head->name = 0;
+			node_num = 0;
 		}
 
 		Graph(int countNodes);
-
 		~Graph()
 		{
 			delete head;
