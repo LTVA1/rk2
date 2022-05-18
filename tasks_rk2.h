@@ -10,21 +10,23 @@ struct Node
 
 	~Node()
 	{
+        /*for(auto iter = listChilds.begin(); iter != listChilds.end(); iter++)
+        {
+            delete *(iter);
+        }*/
+
 		if(parent != nullptr)
 		{
 			delete parent;
 		}
 
-		for(auto iter = listChilds.begin(); iter != listChilds.end(); iter++)
-		{
-			delete *(iter);
-		}
+        delete[] &listChilds;
 	}
 
 	Node* parent;
 	std::list<Node*> listChilds;
 	int name;
-	int countNodes;
+    static int countNodes;
 };
 
 class Graph
@@ -45,6 +47,7 @@ class Graph
 		}
 
 		Graph(int countNodes);
+
 		~Graph()
 		{
 			delete head;
@@ -130,6 +133,35 @@ class Filo
 		std::pair<int,T> pop_back();
 };
 
+template<class T>
+int Filo<T>::push_back(T el)
+{
+    if (countData == size)
+    {
+        return 0;
+    }
+
+    ar[countData] = el;
+
+    countData++;
+
+    return 1;
+}
+
+template<class T>
+std::pair<int, T> Filo<T>::pop_back()
+{
+    if (countData == 0)
+    {
+        return std::make_pair(0, 0);
+    }
+
+    countData--;
+
+    return std::make_pair(1, ar[countData]);
+}
+
+//task 4
 template <typename T>
 std::ostream& operator<< (std::ostream& output, const std::pair<int, T>& p)
 {
@@ -137,6 +169,7 @@ std::ostream& operator<< (std::ostream& output, const std::pair<int, T>& p)
 	return output;
 }
 
+//task 5
 template<class T>
 class CheckBrackets : public Filo<char>
 {

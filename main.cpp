@@ -4,16 +4,18 @@
 
 int main(int argc, char *argv[])
 {
-	QCoreApplication a(argc, argv);
+    QCoreApplication a(argc, argv);
+
+    //std::cout << argc << " " << argv[0] << std::endl;
 
 	//task 1
 	//Node(3);
 
-	Graph gr;
+    Graph gr(4);
 
-	gr.buildTreeBFS(7);
+    //gr.buildTreeBFS(4);
 
-	gr.BFS();
+    gr.BFS();
 
 	//task 2
 	int test[11] = {1, 3, 5, 6, 7, 10, 20, 69, 420, 666, 667};

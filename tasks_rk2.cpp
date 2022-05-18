@@ -8,133 +8,17 @@
 //task 1
 int factorial (int x)
 {
-	if(x == 0) return 1;
+    if(x == 0)
+    {
+        return 1;
+    }
+
 	return x * factorial(x - 1);
 }
 
 Node::Node(int nameNode)
 {
-	int n = nameNode;
-
-	std::list<Node*> generate_list;
-
-	for (int i = 1; i < factorial(n) * n + 1; ++i)
-	{
-		Node* buf = new Node;
-		buf->name = i;
-		generate_list.push_back(buf);
-	}
-
-	int k = 0;
-	auto iter = generate_list.begin();
-
-	int b = n;
-	int c = n - 1;
-
-	auto iter_2 = generate_list.begin();
-
-	for (int i = 0; i < n; ++i)
-	{
-		iter_2++;
-	}
-
-	while (b - k > 1)
-	{
-		for (int i = 0; i < b; ++i)
-		{
-			for (int j = 0; j < n-k-1; ++j)
-			{
-				iter.operator*()->listChilds.push_back(iter_2.operator*());
-				iter.operator*()->countNodes = n - k - 1;
-				iter_2.operator*()->parent = iter.operator*();
-				iter_2.operator*()->countNodes = n - k - 2;
-				iter_2++;
-			}
-
-			iter++;
-		}
-
-		b = b * c;
-		c = c - 1;
-		k++;
-	}
-
-	if (b - k == 1)
-	{
-		for (int i = 0; i < b * n; ++i)
-		{
-			for (int j = 0; j < 1; ++j)
-			{
-				iter.operator*()->listChilds.push_back(iter_2.operator*());
-				iter.operator*()->countNodes = 1;
-				iter_2.operator*()->parent = iter.operator*();
-				iter_2.operator*()->countNodes=0;
-				iter_2++;
-			}
-
-			iter++;
-		}
-	}
-
-	iter = generate_list.begin();
-
-	k = 0;
-	iter = generate_list.begin();
-
-	b = n;
-	c = n - 1;
-	iter_2 = generate_list.begin();
-
-	for (int i = 0; i < n; ++i)
-	{
-		iter_2++;
-	}
-
-	while (b - k > 1)
-	{
-		for (int i = 0; i < b; ++i)
-		{
-			std::cout << iter.operator*()->name << "{";
-
-			for (int j = 0; j < n - k - 1; ++j)
-			{
-				std::cout << iter_2.operator*()->name;
-
-				if (j != n - k - 2)
-				{
-					std::cout << ",";
-				}
-
-				iter_2++;
-			}
-
-			std::cout << "} ";
-			iter++;
-		}
-
-		b = b * c;
-		c = c - 1;
-		k++;
-	}
-
-	if (b - k == 1)
-	{
-		for (int i = 0; i < b*n; ++i)
-		{
-			std::cout << iter.operator*()->name << "{";
-
-			for (int j = 0; j < 1; ++j)
-			{
-				std::cout << iter_2.operator*()->name;
-
-				std::cout << ",";
-				iter_2++;
-			}
-
-			std::cout <<"} ";
-			iter++;
-		}
-	}
+    this->name = nameNode;
 }
 
 int Graph::buildTreeBFS(int countNodes)
@@ -228,90 +112,7 @@ int Graph::buildTreeBFS(int countNodes)
 
 int Graph::buildTreeDFS(int countNodes)
 {
-	int n = countNodes;
-	int r = n - 1;
-	int q = n;
-	node_num = n;
-
-	while(r != 0)
-	{
-		node_num += q * r;
-		q = q * r;
-		r--;
-	}
-
-	std::list<Node*> generate_list;
-
-	for (int i = 1; i < factorial(n) * n + 1; ++i)
-	{
-		Node* buf  = new Node();
-		buf->name = i;
-		generate_list.push_back(buf);
-	}
-
-	int k = 0;
-	auto iter = generate_list.begin();
-
-	int b = n;
-	int c = n - 1;
-	auto iter_2 = generate_list.begin();
-
-	for (int i = 0; i < n; ++i)
-	{
-		iter_2.operator*()->parent = head;
-		iter_2++;
-	}
-
-	while (b - k > 1)
-	{
-		for (int i = 0; i < b; ++i)
-		{
-			for (int j = 0; j < n-k-1; ++j)
-			{
-				iter.operator*()->listChilds.push_back(iter_2.operator*());
-				iter_2.operator*()->parent = iter.operator*();
-				iter_2++;
-
-			}
-
-			iter++;
-		}
-
-		b = b * c;
-		c = c - 1;
-		k++;
-	}
-
-	if (b - k == 1)
-	{
-		for (int i = 0; i < b*n; ++i)
-		{
-			for (int j = 0; j < 1; ++j)
-			{
-				iter.operator*()->listChilds.push_back(iter_2.operator*());
-				iter_2.operator*()->parent = iter.operator*();
-				iter_2++;
-			}
-
-			iter++;
-		}
-	}
-
-	iter = generate_list.begin();
-
-	for (int i = 0; i < countNodes; ++i)
-	{
-		//std::cout << "d" << std::endl;
-		head->listChilds.push_back(iter.operator*());
-
-		iter.operator*()->parent = head;
-
-		iter++;
-	}
-
-	node_ar = generate_list;
-
-	return countNodes;
+    return -1;
 }
 
 void Graph::BFS()
@@ -327,8 +128,6 @@ void Graph::BFS()
 	}
 
 	int n = head->listChilds.back()->name;
-
-	auto head_iter = head->listChilds.begin();
 
 	fileout << "0{";
 
@@ -401,6 +200,10 @@ void Graph::BFS()
 	fileout.close();
 }
 
+Graph::Graph(int countNodes) : Graph()
+{
+    buildTreeBFS(countNodes);
+}
 
 std::pair<bool, std::list<int>>Graph::searchBFS(int nameNode)
 {
@@ -482,35 +285,6 @@ std::pair<int/*index el*/, int /*count call*/> binSearchInner(int* ar, int first
 std::pair<int/*index el*/, int /*count call*/> binSearch(int* ar, int sizeAr, int el)
 {
 	return binSearchInner(ar, 0, sizeAr - 1, el, 1);
-}
-
-//task 3
-template<class T>
-int Filo<T>::push_back(T el)
-{
-	if (countData == size)
-	{
-		return 0;
-	}
-
-	ar[countData] = el;
-
-	countData++;
-
-	return 1;
-}
-
-template<class T>
-std::pair<int, T> Filo<T>::pop_back()
-{
-	if (countData == 0)
-	{
-		return std::make_pair(0, 0);
-	}
-
-	countData--;
-
-	return std::make_pair(1, ar[countData]);
 }
 
 //task 4
