@@ -115,6 +115,11 @@ int Graph::buildTreeDFS(int countNodes)
     return -1;
 }
 
+void Graph::DFS()
+{
+
+}
+
 void Graph::BFS()
 {
 	std::ofstream fileout("bfs_res");
@@ -234,14 +239,14 @@ std::pair<bool, std::list<int>>Graph::searchBFS(int nameNode)
 		out.push_back(0);
 		std::pair<bool, std::list<int>> a;
 
-		make_pair(0, out);
+		std::make_pair(0, out);
 		return (a);
 	}
 
 	else
 	{
 		std::pair<bool, std::list<int>> a;
-		make_pair(1, out);
+		std::make_pair(1, out);
 		return (a);
 	}
 }
